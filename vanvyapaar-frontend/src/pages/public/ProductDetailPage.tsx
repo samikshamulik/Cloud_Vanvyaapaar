@@ -30,6 +30,8 @@ const ProductDetailPage = () => {
   const [activeTab, setActiveTab] = useState('description')
   const [addingToCart, setAddingToCart] = useState(false)
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
+  const isWishlisted = false
+  const reviews: any[] = []
 
   useEffect(() => {
     if (id) {

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import {
   Box, Container, Typography, Button, Card, CardContent,
   IconButton, alpha, Stack, TextField, Select, MenuItem,
-  FormControl, InputLabel, Chip
+  FormControl, InputLabel, Chip, Rating
 } from '@mui/material'
 import {
   ShoppingCart, Search,
@@ -13,7 +13,6 @@ import { useAuthStore } from '../../store/authStore'
 import { useCartStore } from '../../store/cartStore'
 import { Product } from '../../types'
 import productService from '../../services/productService'
-import buyerService from '../../services/buyerService'
 import { formatPrice } from '../../lib/utils'
 import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -122,7 +121,7 @@ const BuyerProducts = () => {
             <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 2 }}>
               <Button
                 component={Link}
-                to="/buyer/dashboard"
+                to="/buyer"
                 startIcon={<ArrowBack />}
                 sx={{
                   color: '#8B4513',

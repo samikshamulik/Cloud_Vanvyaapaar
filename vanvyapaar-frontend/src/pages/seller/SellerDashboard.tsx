@@ -104,8 +104,8 @@ const SellerDashboard = () => {
       icon: <AttachMoney sx={{ fontSize: 48 }} />,
       count: formatPrice(stats.monthlySales),
       color: '#A0826D',
-      description: 'View analytics',
-      link: '/seller/analytics'
+      description: 'Total this month',
+      link: '/seller/orders'
     },
     {
       name: 'Profile Views',
@@ -128,7 +128,7 @@ const SellerDashboard = () => {
     { icon: <Add />, title: 'Add Product', desc: 'List new items', link: '/seller/products/add', color: '#D4A574' },
     { icon: <Inventory />, title: 'Manage Inventory', desc: 'Update stock levels', link: '/seller/products', color: '#C9A86A' },
     { icon: <ShoppingCart />, title: 'View Orders', desc: 'Process orders', link: '/seller/orders', color: '#8B7355' },
-    { icon: <TrendingUp />, title: 'Analytics', desc: 'Track performance', link: '/seller/analytics', color: '#A0826D' }
+    { icon: <TrendingUp />, title: 'My Profile', desc: 'Update your profile', link: '/seller/profile', color: '#A0826D' }
   ]
 
   const getStatusColor = (status: string) => {

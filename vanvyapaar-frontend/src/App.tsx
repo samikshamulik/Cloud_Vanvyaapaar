@@ -40,6 +40,7 @@ import BuyerLayout from './components/layout/BuyerLayout'
 import SellerLayout from './components/layout/SellerLayout'
 import AdminLayout from './components/layout/AdminLayout'
 import ProtectedRoute from './components/auth/ProtectedRoute'
+import ComingSoon from './pages/common/ComingSoon'
 
 function App() {
   const { initializeAuth } = useAuthStore()
@@ -75,6 +76,7 @@ function App() {
         <Route path="checkout" element={<BuyerCheckout />} />
         <Route path="orders" element={<BuyerOrders />} />
         <Route path="profile" element={<BuyerProfile />} />
+        <Route path="*" element={<ComingSoon />} />
       </Route>
 
       {/* Seller Routes */}
@@ -89,6 +91,7 @@ function App() {
         <Route path="products/:id" element={<ProductDetailPage />} />
         <Route path="orders" element={<SellerOrders />} />
         <Route path="profile" element={<SellerProfile />} />
+        <Route path="*" element={<ComingSoon />} />
       </Route>
 
       {/* Admin Routes */}
@@ -102,6 +105,7 @@ function App() {
         <Route path="buyers" element={<AdminBuyers />} />
         <Route path="products" element={<AdminProducts />} />
         <Route path="orders" element={<AdminOrders />} />
+        <Route path="*" element={<ComingSoon />} />
       </Route>
     </Routes>
   )

@@ -37,27 +37,15 @@ export const useCartStore = create<CartState>()(
         set({ isLoading: true })
         try {
           const newItem = await buyerService.addToCart(buyerId, productId, quantity)
-          const currentItems = get().items
-          
-          // Check if item already exists
-          const existingIndex = currentItems.findIndex(item => item.product.id === productId)
-          
-          if (existingIndex >= 0) {
-            // Update existing item
-            const updatedItems = [...currentItems]
-            updatedItems[existingIndex] = newItem
-            set({ items: updatedItems, isLoading: false })
-          } else {
-            // Add new item
-            set({ items: [...currentItems, newItem], isLoading: false })
-          }
-          
+          // Refresh full cart from server to avoid stale state issues
+          const freshCart = await buyerService.getCart(buyerId)
+          set({ items: Array.isArray(freshCart) ? freshCart : [], isLoading: false })
           toast.success('Added to cart!')
           return true
         } catch (error: any) {
           console.error('Error adding to cart:', error)
           const message = error.response?.data || 'Failed to add to cart'
-          toast.error(message)
+          toast.error(typeof message === 'string' ? message : 'Failed to add to cart')
           set({ isLoading: false })
           return false
         }

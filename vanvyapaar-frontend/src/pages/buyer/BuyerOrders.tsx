@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import {
   Box, Container, Typography, CardContent, Chip, Button,
   Stack, Avatar, IconButton, TextField, InputAdornment,
@@ -25,6 +26,7 @@ import toast from 'react-hot-toast'
 
 const BuyerOrders = () => {
   const { user } = useAuthStore()
+  const navigate = useNavigate()
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -530,7 +532,7 @@ const BuyerOrders = () => {
                             <Button
                               variant="outlined"
                               startIcon={<LocalShipping />}
-                              onClick={() => window.open(`/delivery/track/${order.id}`, '_blank')}
+                              onClick={() => navigate('/buyer/track-delivery')}
                               sx={{
                                 borderColor: '#2196F3',
                                 color: '#2196F3',

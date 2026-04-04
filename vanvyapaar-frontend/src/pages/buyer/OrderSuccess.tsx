@@ -364,7 +364,7 @@ const OrderSuccess = () => {
                   fullWidth
                   variant="outlined"
                   size="large"
-                  onClick={() => navigate('/buyer/dashboard')}
+                  onClick={() => navigate('/buyer')}
                   startIcon={<Home />}
                   sx={{
                     color: '#8B4513',

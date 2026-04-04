@@ -143,7 +143,7 @@ const BuyerProfile = () => {
             <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 2 }}>
               <Button
                 component={Link}
-                to="/buyer/dashboard"
+                to="/buyer"
                 startIcon={<ArrowBack />}
                 sx={{
                   color: '#8B4513',

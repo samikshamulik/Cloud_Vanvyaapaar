@@ -30,24 +30,8 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/notifications/**").permitAll()
-                .requestMatchers("/api/chatbot/**").permitAll()
-                .requestMatchers("/api/test/**").permitAll() // Test endpoints
-                .requestMatchers("/api/delivery/test").permitAll() // Test endpoint
-                .requestMatchers("/api/delivery/track/**").permitAll() // Public delivery tracking
-                .requestMatchers("/api/delivery/serviceability/**").permitAll() // Public serviceability check
-                .requestMatchers("/api/delivery/charges/**").permitAll() // Public delivery charges
-                .requestMatchers("/api/delivery/serviceable/**").permitAll() // Public serviceability check (alternative endpoint)
-                .requestMatchers("/api/delivery/charge/**").permitAll() // Public delivery charge (alternative endpoint)
-                .requestMatchers("/api/delivery/estimate/**").permitAll() // Public delivery estimates
-                .requestMatchers("/api/delivery/analytics").permitAll() // Public analytics
-                .requestMatchers("/api/delivery/buyer/**").permitAll() // Buyer deliveries (should be authenticated later)
-                .requestMatchers("/api/delivery/seller/**").permitAll() // Seller deliveries (should be authenticated later)
-                .requestMatchers("/api/delivery/agents/**").permitAll() // Agent endpoints (should be authenticated later)
-                .requestMatchers("/api/delivery/agent/**").permitAll() // Agent deliveries (should be authenticated later)
                 .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/payment/**").permitAll()
-                .requestMatchers("/public/**").permitAll() // Add public endpoints
+                .requestMatchers("/public/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/seller/**").hasRole("SELLER")
                 .requestMatchers("/buyer/**").hasRole("BUYER")

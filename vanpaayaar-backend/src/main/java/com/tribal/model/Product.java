@@ -1,4 +1,5 @@
 package com.tribal.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -38,8 +39,8 @@ public class Product {
                            "bankAccountNumber", "ifscCode", "panNumber", "bio", "createdAt"})
     private Seller seller;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties({"product", "buyer", "order"})
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Cart> carts;
 }
 
