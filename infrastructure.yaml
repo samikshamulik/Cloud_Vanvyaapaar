@@ -343,11 +343,18 @@ Resources:
         UserData:
           Fn::Base64: !Sub |
             #!/bin/bash
+            # Redirect output to log file for debugging
+            exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
+            
             yum update -y
             # Install essentials
-            yum install -y git nginx
-            curl -fsSL https://rpm.nodesource.com/setup_18.x | bash -
-            yum install -y nodejs
+            yum install -y git nginx nodejs
+            
+            # Add swap space to prevent Out Of Memory (OOM) during React build on 1GB instances
+            dd if=/dev/zero of=/swapfile bs=1M count=1024
+            chmod 600 /swapfile
+            mkswap /swapfile
+            swapon /swapfile
             
             # Clone Repository
             cd /home/ec2-user
@@ -360,15 +367,20 @@ Resources:
             
             # Configure Nginx hosting smoothly and bind to port 80 safely
             if [ -f nginx.conf ]; then
-              sed -i 's/listen [0-9]*;/listen 80;/' nginx.conf || true
+              # Make this the default server so AL2023 default block is ignored
+              sed -i 's/listen [0-9]*;/listen 80 default_server;/' nginx.conf || true
+              # Remove proxy to 8080 as ALB handles backend routing directly
+              sed -i '/location \/api\//,/^    }/d' nginx.conf || true
               cp nginx.conf /etc/nginx/conf.d/vanvyaapaar.conf
             fi
-            # Mute default nginx config which listens on port 80 heavily
-            mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.bak || true
+            
+            # Empty the default Nginx html directory to guarantee no default welcome page
+            rm -rf /usr/share/nginx/html/*
+            
             if [ -d dist ]; then
-              cp -r dist/* /usr/share/nginx/html/
+              cp -rf dist/* /usr/share/nginx/html/
             elif [ -d build ]; then
-              cp -r build/* /usr/share/nginx/html/
+              cp -rf build/* /usr/share/nginx/html/
             fi
             
             # Ignite Nginx Daemon Services
