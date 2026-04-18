@@ -351,7 +351,7 @@ Resources:
             yum install -y git nginx nodejs
             
             # Add swap space to prevent Out Of Memory (OOM) during React build on 1GB instances
-            dd if=/dev/zero of=/swapfile bs=1M count=1024
+            dd if=/dev/zero of=/swapfile bs=1M count=2048
             chmod 600 /swapfile
             mkswap /swapfile
             swapon /swapfile
@@ -363,6 +363,7 @@ Resources:
             
             # Install and build frontend statically
             npm install
+            export NODE_OPTIONS="--max-old-space-size=2048"
             npm run build
             
             # Configure Nginx hosting smoothly and bind to port 80 safely
