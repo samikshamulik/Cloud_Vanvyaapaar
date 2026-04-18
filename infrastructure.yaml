@@ -367,6 +367,8 @@ Resources:
             
             # Configure Nginx hosting smoothly and bind to port 80 safely
             if [ -f nginx.conf ]; then
+              # Remove default_server from the main config to avoid conflicts
+              sed -i 's/default_server//g' /etc/nginx/nginx.conf || true
               # Make this the default server so AL2023 default block is ignored
               sed -i 's/listen [0-9]*;/listen 80 default_server;/' nginx.conf || true
               # Remove proxy to 8080 as ALB handles backend routing directly
